@@ -1,0 +1,57 @@
+{
+  "name": "openclaw-cohere-stt",
+  "version": "1.0.0",
+  "description": "OpenClaw Cohere audio transcription provider plugin",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "audio.ts",
+    "index.ts",
+    "media-understanding-provider.ts",
+    "openclaw.plugin.json"
+  ],
+  "type": "module",
+  "scripts": {
+    "format:check": "oxfmt --check README.md package.json openclaw.plugin.json index.ts audio.ts media-understanding-provider.ts audio.test.ts media-understanding-provider.test.ts readme.test.ts vitest.config.ts",
+    "lint": "oxlint index.ts audio.ts media-understanding-provider.ts audio.test.ts media-understanding-provider.test.ts readme.test.ts vitest.config.ts",
+    "test": "vitest run --config vitest.config.ts",
+    "check": "pnpm run format:check && pnpm run lint && pnpm run test"
+  },
+  "devDependencies": {
+    "json5": "^2.2.3",
+    "openclaw": "2026.4.11",
+    "oxfmt": "0.43.0",
+    "oxlint": "^1.59.0",
+    "vitest": "^4.1.2"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.4.11"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "providers": [
+      "cohere"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.4.11",
+      "minGatewayVersion": "2026.4.11"
+    },
+    "build": {
+      "openclawVersion": "2026.4.11",
+      "pluginSdkVersion": "2026.4.11"
+    },
+    "install": {
+      "npmSpec": "openclaw-cohere-stt",
+      "defaultChoice": "npm",
+      "minHostVersion": ">=2026.4.11"
+    }
+  }
+}

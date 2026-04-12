@@ -1,0 +1,30 @@
+{
+  "id": "cohere-stt",
+  "name": "Cohere STT",
+  "description": "OpenClaw media-understanding provider plugin for Cohere audio transcription.",
+  "providers": ["cohere"],
+  "providerAuthEnvVars": {
+    "cohere": ["COHERE_API_KEY"]
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "cohere",
+      "method": "api-key",
+      "choiceId": "cohere-api-key",
+      "choiceLabel": "Cohere API key",
+      "groupId": "cohere",
+      "groupLabel": "Cohere",
+      "cliFlag": "--cohere-api-key",
+      "cliOption": "--cohere-api-key <key>",
+      "cliDescription": "Cohere API key"
+    }
+  ],
+  "contracts": {
+    "mediaUnderstandingProviders": ["cohere"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
