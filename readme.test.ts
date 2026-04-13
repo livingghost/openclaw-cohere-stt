@@ -35,11 +35,9 @@ function parseJson5Fence<T>(heading: string): T {
 describe("cohere-stt README examples", () => {
   it("keeps the minimal config parseable", () => {
     const example = parseJson5Fence<{
-      models?: { providers?: Record<string, { apiKey?: string }> };
       tools?: { media?: { audio?: { models?: Array<Record<string, unknown>> } } };
     }>("## Minimal audio config");
 
-    expect(example.models?.providers?.cohere?.apiKey).toBe("optional-if-COHERE_API_KEY-is-set");
     expect(example.tools?.media?.audio?.models).toEqual([
       {
         provider: "cohere",
@@ -51,9 +49,6 @@ describe("cohere-stt README examples", () => {
 
   it("keeps the full config parseable", () => {
     const example = parseJson5Fence<{
-      models?: {
-        providers?: Record<string, { apiKey?: string; baseUrl?: string }>;
-      };
       tools?: {
         media?: {
           audio?: {
@@ -65,10 +60,6 @@ describe("cohere-stt README examples", () => {
       };
     }>("## Example with supported settings");
 
-    expect(example.models?.providers?.cohere).toEqual({
-      apiKey: "optional-if-COHERE_API_KEY-is-set",
-      baseUrl: "https://api.cohere.com/v2",
-    });
     expect(example.tools?.media?.audio?.enabled).toBe(true);
     expect(example.tools?.media?.audio?.providerOptions?.cohere).toEqual({
       temperature: 0.2,
@@ -78,7 +69,41 @@ describe("cohere-stt README examples", () => {
         provider: "cohere",
         model: "cohere-transcribe-03-2026",
         language: "en",
+        baseUrl: "https://api.cohere.com/v2",
       },
     ]);
+  });
+
+  it("keeps the auth profile example parseable", () => {
+    const example = parseJson5Fence<{
+      tools?: { media?: { audio?: { models?: Array<Record<string, unknown>> } } };
+    }>("## Alternative auth setup: auth profile");
+
+    expect(example.tools?.media?.audio?.models).toEqual([
+      {
+        provider: "cohere",
+        model: "cohere-transcribe-03-2026",
+        language: "ja",
+        profile: "cohere:default",
+      },
+    ]);
+  });
+
+  it("keeps the auth-profiles.json example parseable", () => {
+    const example = parseJson5Fence<{
+      version?: number;
+      profiles?: Record<string, Record<string, unknown>>;
+    }>("`auth-profiles.json`:");
+
+    expect(example.version).toBe(1);
+    expect(example.profiles?.["cohere:default"]).toEqual({
+      type: "api_key",
+      provider: "cohere",
+      keyRef: {
+        source: "env",
+        provider: "default",
+        id: "COHERE_API_KEY",
+      },
+    });
   });
 });
