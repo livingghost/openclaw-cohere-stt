@@ -1,6 +1,6 @@
 {
   "name": "openclaw-cohere-stt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "OpenClaw Cohere audio transcription provider plugin",
   "license": "MIT",
   "files": [

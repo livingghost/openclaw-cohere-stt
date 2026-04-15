@@ -78,6 +78,12 @@ describe("Cohere audio transcription", () => {
     };
     expect(request.url).toBe("https://api.cohere.com/v2/audio/transcriptions");
     expect(request.headers.get("authorization")).toBe("Bearer test-token");
+    expect(Array.from(request.body.entries(), ([key]) => key)).toEqual([
+      "model",
+      "language",
+      "temperature",
+      "file",
+    ]);
     expect(request.body.get("model")).toBe("cohere-transcribe-03-2026");
     expect(request.body.get("language")).toBe("ja");
     expect(request.body.get("temperature")).toBe("0.25");

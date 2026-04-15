@@ -63,7 +63,6 @@ export async function transcribeCohereAudio(
   });
 
   const form = new FormData();
-  form.append("file", blob, fileName);
   form.append("model", model);
   if (params.language?.trim()) {
     form.append("language", params.language.trim());
@@ -71,6 +70,7 @@ export async function transcribeCohereAudio(
   if (temperature !== undefined) {
     form.append("temperature", String(temperature));
   }
+  form.append("file", blob, fileName);
 
   const { response: res, release } = await postTranscriptionRequest({
     url,
